@@ -16,6 +16,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "nightmare": "^2.10.0"
   }
 }
