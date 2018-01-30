@@ -1,18 +1,40 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { getPlants } from './api/plants'
+
+// const renderLine = (plant, key) => <li key={key}><b>{key}</b>: plant[key]}</li>
 
 class App extends Component {
+  constructor (props) {
+    super(props)
+     // debugger;
+    this.state = { plants: [] }
+  }
+
+  componentDidMount() {
+    getPlants().then(data => {
+       // debugger;
+      this.setState({ plants: data.entity.data })
+        // debugger;
+    })
+  }
+
   render() {
-    return (
+    // const { plant } = this.state
+    const plantList = this.state.plants.map(plant => {
+      return <li key={plant.id}>{plant.attributes.name}</li>
+    });
+
+      return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Welcome to PlantEd</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <ul style={{ listStyle: 'none'}}>
+          {
+            plantList
+          }
+        </ul>
       </div>
     );
   }

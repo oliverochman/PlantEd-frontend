@@ -1,12 +1,13 @@
 const plant = require('../plants')
 jest.mock('../request')
 
-describe('#getPlant() using Promises', () => {
+describe('#getPlants() using Promises', () => {
   it('should load plants data', () => {
-    return plant.getPlant('Aloe Vera')
+    return plant.getPlants()
     .then(data => {
+      debugger;
       expect(data).toBeDefined()
-      expect(data.entity.description).toEqual('The Aloe Vera plant (succulent type) is well known for offering possible health and beauty benefits. This succulent is a tough species that is very easy to care for and rarely presents problems for most growers.')
+      expect(data.entity.data.first.attribute.name).toEqual('Aleo Vera')
     })
   })
 })
