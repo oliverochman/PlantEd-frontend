@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const request = (url) => new Promise((resolve, reject) => {
+const request = () => new Promise((resolve, reject) => {
   // const lastSlash = url.lastIndexOf('/')
   // const plantID = url.substring(lastSlash + 1)
 

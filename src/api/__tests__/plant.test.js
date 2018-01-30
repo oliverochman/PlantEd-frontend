@@ -7,7 +7,7 @@ describe('#getPlants() using Promises', () => {
     .then(data => {
       debugger;
       expect(data).toBeDefined()
-      expect(data.entity.data.first.attribute.name).toEqual('Aleo Vera')
+      expect(data.entity.data.attributes).toEqual('Aleo Vera')
     })
   })
 })
