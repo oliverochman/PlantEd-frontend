@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {getPlants} from './api/plants';
+import Selector, {Components} from './components/Selector';
 import './App.css';
 
 class App extends Component {
