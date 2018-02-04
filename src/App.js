@@ -1,32 +1,22 @@
 import React, {Component} from 'react';
-import {getPlants} from './api/plants';
-import Selector, {Components} from './components/Selector';
+import AddPlant from './Components/AddPlant';
 import './App.css';
+import PlantList from "./Components/PlantList";
 
 class App extends Component {
-    constructor(props) {
-        super(props)
+    constructor(){
+        super();
         this.state = {plants: []}
     }
 
-    componentDidMount() {
-        getPlants().then(data => {
-            this.setState({plants: data.entity.data})
-        })
-    }
-
     render() {
-        const plantList = this.state.plants.map(plant => {
-            return <li key={plant.id}>{plant.attributes.name}</li>
-        });
         return (
             <div className="App">
                 <header className="App-header">
                     <h1 className="App-title">Welcome to PlantEd</h1>
                 </header>
-                <ul style={{listStyle: 'none'}}>
-                    {plantList}
-                </ul>
+                <PlantList/>
+                <AddPlant/>
             </div>
         );
     }
