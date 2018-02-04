@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import AddPlant from './Components/AddPlant';
 import './App.css';
-import PlantList from "./Components/PlantList";
 
 class App extends Component {
     constructor(){
@@ -15,7 +14,6 @@ class App extends Component {
                 <header className="App-header">
                     <h1 className="App-title">Welcome to PlantEd</h1>
                 </header>
-                <PlantList/>
                 <AddPlant/>
             </div>
         );

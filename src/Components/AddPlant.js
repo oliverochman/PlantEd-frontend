@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { getPlants } from "../api/plants";
 
 class AddPlant extends Component {
-    static defaultProps = {
-        plants: [getPlants]
+    constructor() {
+      super();
+      this.state = {plants: []}
     }
 
     componentDidMount() {
@@ -13,9 +14,9 @@ class AddPlant extends Component {
     }
 
     render() {
-        const plantOptions = this.props.plants.map(plant => {
-            return <option key={plant} value="plant">{plant}</option>
-        });
+      const plantOptions = this.state.plants.map(plant => {
+          return <option key={plant.id} value="plant">{plant.attributes.name}</option>
+      });
         return (
             <div>
                 <h3>Add your Plant:</h3>
