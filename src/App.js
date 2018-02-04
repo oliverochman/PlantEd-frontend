@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import AddPlant from './Components/AddPlant';
+import Login from './Components/LoginPage';
 import './App.css';
 
 class App extends Component {
-    constructor(){
+    constructor() {
         super();
         this.state = {plants: []}
     }
+
 
     render() {
         return (
@@ -14,6 +16,7 @@ class App extends Component {
                 <header className="App-header">
                     <h1 className="App-title">Welcome to PlantEd</h1>
                 </header>
+                <Login/>
                 <AddPlant/>
             </div>
         );
