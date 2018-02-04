@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import {getPlant, getPlants} from "../api/plants";
-import PlantList from "/PlantList";
+import { getPlants } from "../api/plants";
 
 class AddPlant extends Component {
     static defaultProps = {
@@ -15,7 +14,7 @@ class AddPlant extends Component {
 
     render() {
         const plantOptions = this.props.plants.map(plant => {
-            return <option key={plant} value="plant">{plantList}</option>
+            return <option key={plant} value="plant">{plant}</option>
         });
         return (
             <div>

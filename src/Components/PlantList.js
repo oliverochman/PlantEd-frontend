@@ -8,12 +8,14 @@ class PlantList extends Component {
     }
 
     componentDidMount() {
+        debugger;
         getPlants().then(data => {
             this.setState({plants: data.entity.data})
         })
     }
 
     render() {
+        debugger;
         const plantList = this.state.plants.map(plant => {
             return <li key={plant.id}>{plant.attributes.name}</li>
         });
