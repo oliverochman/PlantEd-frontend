@@ -1,21 +1,25 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+import AddPlant from './Components/AddPlant';
+import Login from './Components/LoginPage';
 import './App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    constructor() {
+        super();
+        this.state = {plants: []}
+    }
+
+
+    render() {
+        return (
+            <div className="App">
+                <header className="App-header">
+                    <h1 className="App-title">Welcome to PlantEd</h1>
+                </header>
+                <AddPlant/>
+            </div>
+        );
+    }
 }
 
 export default App;
