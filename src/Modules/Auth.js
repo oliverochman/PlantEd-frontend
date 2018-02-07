@@ -42,10 +42,8 @@ const storeAuthHeaders = ({ headers }) => {
 
 
 const getAuthHeaders = () => {
-    debugger;
-    const headers = JSON.parse(sessionStorage.getItem('credentials'));
-    return headers;
-}
+    return JSON.parse(sessionStorage.getItem('credentials'));
+};
 
 export {apiUrl, authenticate, storeAuthHeaders, getAuthHeaders}
 

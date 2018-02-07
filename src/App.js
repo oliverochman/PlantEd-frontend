@@ -1,16 +1,29 @@
 import React, {Component} from 'react';
 import EventEmitter from './Modules/EventEmitter'
 import AddPlant from './Components/AddPlant';
+import ShowUser from './Components/ShowUser'
 import Login from './Components/LoginPage';
+import {ToastContainer, toast} from 'react-toastify'
+import {Container, Row, Col} from 'reactstrap';
 import './App.css';
 
 
 class App extends Component {
 
+    static notify() {
+        let email = JSON.parse(sessionStorage.getItem('credentials')).uid;
+        toast(`Logged in as ${email}`, {autoClose: 8000});
+    }
 
     constructor() {
         super();
-        this.state = {plants: [], authenticated: false}
+        this.state = {plants: [], authenticated: this.checkSessionStorage()}
+    }
+
+    checkSessionStorage() {
+        const credentials = JSON.parse(sessionStorage.getItem('credentials'));
+
+        return !(credentials === null || credentials.length === 0);
     }
 
     componentDidMount() {
@@ -18,8 +31,10 @@ class App extends Component {
 
     }
 
-    updateAuthState(){
-        this.setState({authenticated: true})
+    updateAuthState() {
+        App.notify();
+        this.setState({authenticated: true});
+
     }
 
 
@@ -38,19 +53,34 @@ class App extends Component {
             return (
                 <div>
                     {header}
-                    <Login/>;
+                    <Container>
+                        <Row>
+                            <Col>
+                                <Login/>
+                            </Col>
+                        </Row>
+                    </Container>
                 </div>
+
             )
         } else {
             return (
+
                 <div>
                     {header}
-                    <AddPlant/>
+                    <Container>
+                        <Row>
+                            <Col>
+                                <ToastContainer/>
+                                <AddPlant/>
+                            </Col>
+                            <Col>
+                               <ShowUser/>
+                            </Col>
+                        </Row>
+                    </Container>
                 </div>
-
             )
-
-
         }
     }
 }
