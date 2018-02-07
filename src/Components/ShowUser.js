@@ -17,6 +17,10 @@ class ShowUser extends Component {
         return this.state.user.attributes.email
     };
 
+    displayUserPlants() {
+        return this.state.user.relationships.plants.data
+    };
+
     render() {
 
 
@@ -24,6 +28,9 @@ class ShowUser extends Component {
             <div>
                 <h3>User</h3>
                 <p>{this.displayUser.bind(this)}</p>
+                <ul>
+                    <li>{this.displayUserPlants.bind(this)}</li>
+                </ul>
             </div>
         );
     }
