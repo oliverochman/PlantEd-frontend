@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
+import {authenticate} from '../Modules/Auth'
+import EventEmitter from '../Modules/EventEmitter'
 import {Button, Form, FormGroup, Label, Input} from 'reactstrap';
+
+
 
 class Login extends Component {
     constructor(props) {
@@ -11,22 +15,13 @@ class Login extends Component {
         }
     }
 
-    handleSubmit() {
-        let request = new XMLHttpRequest();
-        //request.open('POST', 'https://planted-api.herokuapp.com/api/v1/auth/sign_in');
-        request.open('POST', 'http://localhost:3001/api/v1/auth/sign_in');
-        request.setRequestHeader('Content-Type', 'application/json');
-        debugger;
-        request.send(JSON.stringify({email: this.state.email, password: this.state.password}));  //The shit we get from the form
-        request.addEventListener('load', () => {
-            // change state
 
-            const uid = request.getResponseHeader('uid');
-            const client = request.getResponseHeader('client');
-            const accessToken = request.getResponseHeader('access-token');
-            const expiry = request.getResponseHeader('expiry');
-        })
-
+    handleLogin() {
+        authenticate(this.state.email, this.state.password).then(resp => {
+            this.setState(resp);
+            console.log(this.state);
+            EventEmitter.publish('authenticate.update', this.state.authenticated);
+        });
     }
 
 
@@ -35,7 +30,7 @@ class Login extends Component {
         return (
             <div className='row jusify-content-center'>
                 <div className='col-10 col-sm-7 col-md-5 col-lg-4'>
-                    <form>
+                    <Form>
                         <FormGroup>
                             <Label for="exampleEmail">Email</Label>
                             <Input type="email" name="email" id="exampleEmail"
@@ -50,8 +45,8 @@ class Login extends Component {
                                    value={this.state.password}
                                    onChange={(e) => this.setState( {password: e.target.value})}/>
                         </FormGroup>
-                        <Button onClick={this.handleSubmit.bind(this)}>Login</Button>
-                    </form>
+                        <Button onClick={() => this.handleLogin()}>Login</Button>
+                    </Form>
                 </div>
             </div>
 

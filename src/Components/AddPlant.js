@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getPlants } from "../api/plants";
+import {getPlants} from '../Modules/Plants';
 
 class AddPlant extends Component {
     constructor() {
@@ -8,8 +8,8 @@ class AddPlant extends Component {
     }
 
     componentDidMount() {
-        getPlants().then(data => {
-            this.setState({plants: data.entity.data})
+        getPlants().then(response => {
+            this.setState({plants: response.data})
         })
     }
 
