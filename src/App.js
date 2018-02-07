@@ -75,7 +75,7 @@ class App extends Component {
                                 <AddPlant/>
                             </Col>
                             <Col>
-                               <ShowUser/>
+                               {/*<ShowUser/>*/}
                             </Col>
                         </Row>
                     </Container>
