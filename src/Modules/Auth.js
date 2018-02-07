@@ -23,14 +23,16 @@ const authenticate = (email, password) => {
     })
 }
 
-const storeAuthHeaders = ({ headers }) => {
+const storeAuthHeaders = response => {
     return new Promise((resolve) => {
-        const uid = headers['uid'],
-              client = headers['client'],
-              accessToken = headers['access-token'],
-              expiry = headers['expiry'];
+        const id = response.data.data.id,
+            uid = response.headers['uid'],
+            client = response.headers['client'],
+            accessToken = response.headers['access-token'],
+            expiry = response.headers['expiry'];
 
         resolve(sessionStorage.setItem('credentials', JSON.stringify({
+            id: id,
             uid: uid,
             client: client,
             access_token: accessToken,
