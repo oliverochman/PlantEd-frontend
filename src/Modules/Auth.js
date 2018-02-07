@@ -21,21 +21,21 @@ const authenticate = (email, password) => {
                 reject(error)
             });
     })
-
-
 }
 
-const storeAuthHeaders = (response) => {
+const storeAuthHeaders = ({ headers }) => {
     return new Promise((resolve) => {
-        const uid = response.headers['uid'];
-        const client = response.headers['client'];
-        const accessToken = response.headers['access-token'];
-        const expiry = response.headers['expiry'];
+        const uid = headers['uid'],
+              client = headers['client'],
+              accessToken = headers['access-token'],
+              expiry = headers['expiry'];
+
         resolve(sessionStorage.setItem('credentials', JSON.stringify({
             uid: uid,
             client: client,
-            accessToken: accessToken,
-            expiry: expiry
+            access_token: accessToken,
+            expiry: expiry,
+            token_type: 'Bearer'
         })))
     })
 };
