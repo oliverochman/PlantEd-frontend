@@ -4,8 +4,10 @@ import AddPlant from './Components/AddPlant';
 import ShowUser from './Components/ShowUser'
 import Login from './Components/LoginPage';
 import {ToastContainer, toast} from 'react-toastify'
-import {Container, Row, Col} from 'reactstrap';
+import {Container, Row, Col, Button} from 'reactstrap';
+
 import './App.css';
+import {deAuthenticate} from "./Modules/Auth";
 
 
 class App extends Component {
@@ -17,33 +19,56 @@ class App extends Component {
 
     constructor() {
         super();
-        this.state = {plants: [], authenticated: this.checkSessionStorage()}
+        this.state = {user: '', authenticated: App.checkSessionStorage()}
+
     }
 
-    checkSessionStorage() {
+    static checkSessionStorage() {
         const credentials = JSON.parse(sessionStorage.getItem('credentials'));
 
         return !(credentials === null || credentials.length === 0);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         EventEmitter.subscribe('authenticate.update', this.updateAuthState.bind(this));
-
     }
 
+
+    componentWillUnmount() {
+        EventEmitter.unsubscribe('authenticate.update', null);
+    }
+
+
     updateAuthState() {
-        App.notify();
+
         this.setState({authenticated: true});
+        App.notify();
+        this.forceUpdate.bind(this);
+    }
+
+    resetAuthState(){
+        deAuthenticate().then(()=>{
+            this.setState({authenticated: false});
+            //this.forceUpdate.bind(this);
+            window.location.reload()
+        })
 
     }
 
 
     render() {
+        let logOutButton;
+
+        if (this.state.authenticated === true) {
+            logOutButton = <Button color="secondary" onClick={this.resetAuthState.bind(this)}>Log out</Button>
+        }
+
 
         const header = (
             <div className="App">
                 <header className="App-header">
                     <h1 className="App-title">Welcome to PlantEd</h1>
+                    {logOutButton}
                 </header>
             </div>
         );
@@ -75,7 +100,7 @@ class App extends Component {
                                 <AddPlant/>
                             </Col>
                             <Col>
-                               {/*<ShowUser/>*/}
+                                <ShowUser/>
                             </Col>
                         </Row>
                     </Container>

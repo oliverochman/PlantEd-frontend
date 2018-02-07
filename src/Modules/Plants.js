@@ -7,9 +7,7 @@ const getPlants = () => {
     return new Promise((resolve, reject) => {
         axios.get(path, {headers: getAuthHeaders()})
             .then(response => {
-                storeAuthHeaders(response).then(() => {
-                    resolve(response.data)
-                });
+                resolve(response.data)
             })
             .catch(error => {
                 reject(error)
