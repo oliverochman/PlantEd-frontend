@@ -7,17 +7,23 @@ class ShowUser extends Component {
         this.state = {user: ''}
     }
 
-    componentDidMount() {
+    componentWillMount() {
         getUser().then(response => {
-            this.setState({user: response.data.first})
+            this.setState({user: response.data.data})
         })
     }
 
+    displayUser() {
+        return this.state.user.attributes.email
+    };
+
     render() {
+
+
         return (
             <div>
                 <h3>User</h3>
-                <p key={this.state.user.id}>{this.state.user}</p>
+                <p>{this.displayUser.bind(this)}</p>
             </div>
         );
     }

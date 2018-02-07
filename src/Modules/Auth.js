@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const apiUrl = 'http://localhost:3001/api/v1';
+const apiUrl = 'https://planted-api.herokuapp.com/api/v1/';
 
 const authenticate = (email, password) => {
     const path = apiUrl + '/auth/sign_in';
@@ -11,6 +11,7 @@ const authenticate = (email, password) => {
         })
             .then(response => {
                 console.log(response);
+                sessionStorage.setItem('current_user', JSON.stringify({id: response.data.data.id}));
                 storeAuthHeaders(response).then(() => {
                     resolve({
                         authenticated: true
@@ -23,20 +24,22 @@ const authenticate = (email, password) => {
     })
 }
 
-const storeAuthHeaders = ({ headers }) => {
+const storeAuthHeaders = ({headers}) => {
     return new Promise((resolve) => {
         const uid = headers['uid'],
-              client = headers['client'],
-              accessToken = headers['access-token'],
-              expiry = headers['expiry'];
+            client = headers['client'],
+            accessToken = headers['access-token'],
+            expiry = headers['expiry'];
 
-        resolve(sessionStorage.setItem('credentials', JSON.stringify({
+        sessionStorage.setItem('credentials', JSON.stringify({
             uid: uid,
             client: client,
             access_token: accessToken,
             expiry: expiry,
             token_type: 'Bearer'
-        })))
+        }));
+
+        resolve(true)
     })
 };
 
@@ -46,4 +49,3 @@ const getAuthHeaders = () => {
 };
 
 export {apiUrl, authenticate, storeAuthHeaders, getAuthHeaders}
-
