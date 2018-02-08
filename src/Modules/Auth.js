@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const apiUrl = 'planted-api.herokuapp.com/api/v1';
+const apiUrl = 'https://planted-api.herokuapp.com/api/v1';
 
 const authenticate = (email, password) => {
     const path = apiUrl + '/auth/sign_in';
