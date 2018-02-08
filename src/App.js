@@ -10,7 +10,7 @@ import ActionCable from 'actioncable'
 import './App.css';
 import {deAuthenticate} from "./Modules/Auth";
 
-const cable = ActionCable.createConsumer("ws://localhost:3001/cable");
+const cable = ActionCable.createConsumer("https://planted-api.herokuapp.com/cable");
 
 
 class App extends Component {
@@ -37,12 +37,12 @@ class App extends Component {
     }
 
     componentWillMount() {
-        cable.subscriptions.create({channel: 'NotificationChannel', user_id: JSON.parse(sessionStorage.getItem('current_user')).id}, {
-            received: (data) => {
-                console.log('received message')
-                return toast(data.notification, {autoClose: 8000})
-            },
-        });
+        // cable.subscriptions.create({channel: 'NotificationChannel', user_id: JSON.parse(sessionStorage.getItem('current_user')).id}, {
+        //     received: (data) => {
+        //         console.log('received message')
+        //         return toast(data.notification, {autoClose: 8000})
+        //     },
+        // });
         EventEmitter.subscribe('authenticate.update', this.updateAuthState.bind(this));
     }
 

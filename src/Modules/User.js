@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import {apiUrl, storeAuthHeaders, getAuthHeaders} from './Auth'
+import {apiUrl, getAuthHeaders} from './Auth'
 
 const getUser = () => {
     const current_user = JSON.parse(sessionStorage.getItem('current_user'));
