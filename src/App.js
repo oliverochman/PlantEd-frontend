@@ -73,7 +73,7 @@ class App extends Component {
         let logOutButton;
 
         if (this.state.authenticated === true) {
-            logOutButton = <Button color="secondary" onClick={this.resetAuthState.bind(this)}>Log out</Button>
+            logOutButton = <Button onClick={this.resetAuthState.bind(this)} id="button-logout">Log out</Button>
         }
 
 

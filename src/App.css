@@ -2,6 +2,26 @@
   text-align: center;
 }
 
+#button-logout {
+  background-color: #57BC90;
+  border: lightseagreen;
+  color: white;
+}
+
+#select-plant {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#select {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  margin-bottom: 40px;
+  margin-top: 20px;
+  width: 30%;
+}
+
 .card {
   padding: 20px;
   width: 30%;

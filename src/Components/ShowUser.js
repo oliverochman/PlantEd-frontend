@@ -11,8 +11,7 @@ class ShowUser extends Component {
     }
 
     componentDidMount() {
-        getUser().then(response => {`
-        `
+        getUser().then(response => {
             this.setState({user: response.data, isLoading: false});
         })
     }
@@ -25,16 +24,14 @@ class ShowUser extends Component {
         if (this.state.isLoading) {
             return <div>Loading</div>
         } else {
-            debugger;
             const plantList = user.relationships.plants.data.map(plant => {
                 return (
                     <div className="card">
                         <p>{plant.image}</p>
-                        <img className="card-img-top" src={https://${plant.image}`} alt="Card cap"/>
+                        <img className="card-img-top" src="" alt="Card cap"/>
                         <div>
                             <h5>{plant.name}</h5>
                             <p>{plant.description}</p>
-                            <Button>Edit</Button>
                         </div>
                     </div>
                 )

@@ -18,9 +18,9 @@ class AddPlant extends Component {
           return <option key={plant.id} value="plant">{plant.attributes.name}</option>
       });
         return (
-            <div>
-                <h3>Add your Plant:</h3>
-                <select ref="plant">
+            <div className="form-inline" id="select-plant">
+                <h4>Select a plant to add it to your own collection:</h4>
+                <select className="form-control" ref="plant" id="select">
                     {plantOptions}
                 </select>
             </div>
