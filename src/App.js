@@ -10,7 +10,7 @@ import ActionCable from 'actioncable'
 import './App.css';
 import {deAuthenticate} from "./Modules/Auth";
 
-const cable = ActionCable.createConsumer("ws://localhost:3001/cable");
+ const cable = ActionCable.createConsumer("ws://localhost:3001/cable");
 
 
 class App extends Component {
@@ -91,12 +91,8 @@ class App extends Component {
             return (
                 <div>
                     {header}
-                    <Container>
-                        <Row>
-                            <Col>
-                                <Login/>
-                            </Col>
-                        </Row>
+                    <Container id="auth-form">
+                        <Login/>
                     </Container>
                 </div>
 
