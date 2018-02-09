@@ -4,13 +4,13 @@ import AddPlant from './Components/AddPlant';
 import ShowUser from './Components/ShowUser'
 import Login from './Components/LoginPage';
 import {ToastContainer, toast} from 'react-toastify'
-import {Container, Row, Col, Button} from 'reactstrap';
+import {Jumbotron, Container, Row, Col, Button} from 'reactstrap';
 import ActionCable from 'actioncable'
 
 import './App.css';
 import {deAuthenticate} from "./Modules/Auth";
 
-const cable = ActionCable.createConsumer("ws://localhost:3001/cable");
+// const cable = ActionCable.createConsumer("ws://localhost:3001/cable");
 
 
 class App extends Component {
@@ -36,15 +36,15 @@ class App extends Component {
         return !(credentials === null || credentials.length === 0);
     }
 
-    componentWillMount() {
-        cable.subscriptions.create({channel: 'NotificationChannel', user_id: JSON.parse(sessionStorage.getItem('current_user')).id}, {
-            received: (data) => {
-                console.log('received message')
-                return toast(data.notification, {autoClose: 8000})
-            },
-        });
-        EventEmitter.subscribe('authenticate.update', this.updateAuthState.bind(this));
-    }
+    // componentWillMount() {
+    //     cable.subscriptions.create({channel: 'NotificationChannel', user_id: JSON.parse(sessionStorage.getItem('current_user')).id}, {
+    //         received: (data) => {
+    //             console.log('received message')
+    //             return toast(data.notification, {autoClose: 8000})
+    //         },
+    //     });
+    //     EventEmitter.subscribe('authenticate.update', this.updateAuthState.bind(this));
+    // }
 
 
     componentWillUnmount() {
@@ -79,10 +79,13 @@ class App extends Component {
 
         const header = (
             <div className="App">
-                <header className="App-header">
-                    <h1 className="App-title">Welcome to PlantEd</h1>
-                    {logOutButton}
-                </header>
+                <Jumbotron fluid>
+                    <Container fluid>
+                        <h1 className="display-3">Welcome to PlantEd</h1>
+                        <p className="lead">Keeping your plants alive</p>
+                        {logOutButton}
+                    </Container>
+                </Jumbotron>
             </div>
         );
 
@@ -106,15 +109,9 @@ class App extends Component {
                 <div>
                     {header}
                     <Container>
-                        <Row>
-                            <Col>
-                                <ToastContainer/>
-                                <AddPlant/>
-                            </Col>
-                            <Col>
-                                <ShowUser/>
-                            </Col>
-                        </Row>
+                        <ToastContainer/>
+                        <ShowUser/>
+                        <AddPlant/>
                     </Container>
                 </div>
 
