@@ -108,11 +108,13 @@ class App extends Component {
             return (
                 <div>
                     {header}
-                    <Container>
                         <ToastContainer/>
-                        <ShowUser/>
-                        <AddPlant/>
-                    </Container>
+                        <Container>
+                            <AddPlant/>
+                        </Container>
+                        <Container>
+                            <ShowUser/>
+                        </Container>
                 </div>
 
             )

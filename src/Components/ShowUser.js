@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {getUser} from '../Modules/User';
-import { Card, CardImg, CardText, CardBlock, CardTitle, Button, Container, Row, Col } from 'reactstrap';
+import { Button, Container, Row, Col } from 'reactstrap';
 
 
 
@@ -24,30 +24,25 @@ class ShowUser extends Component {
         if (this.state.isLoading) {
             return <div>Loading</div>
         } else {
-            //
             const plantList = this.state.user.relationships.plants.data.map(plant => {
                 return (
-                    <Card>
-                        <CardImg top width="100%" src="" alt="Card image cap" />
-                        <CardBlock key={plant.id} className={'no-bullets'} value="plant">
-                            <CardTitle>{plant.name}</CardTitle>
-                            <CardText>{plant.description}</CardText>
+                    <div className="card">
+                        <img className="card-img-top" src="" alt="Card cap"/>
+                        <div>
+                            <h5>{plant.name}</h5>
+                            <p>{plant.description}</p>
                             <Button>Edit</Button>
-                        </CardBlock>
-                    </Card>
+                        </div>
+                    </div>
                 )
             });
             return (
                 <div>
-                    <h3>User</h3>
-                    <p>{user.attributes.email}</p>
-                    <Container>
-                        <Row>
-                            <Col>
-                                {plantList}
-                            </Col>
-                        </Row>
-                    </Container>
+                    {/*<h3>User</h3>*/}
+                    {/*<p>{user.attributes.email}</p>*/}
+                    <div className="container">
+                        {plantList}
+                    </div>
                 </div>
             );
         }
