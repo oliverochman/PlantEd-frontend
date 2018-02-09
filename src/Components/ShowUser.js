@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {getUser} from '../Modules/User';
+import EventEmitter from '../Modules/EventEmitter';
+
 
 
 class ShowUser extends Component {
@@ -8,10 +10,18 @@ class ShowUser extends Component {
         this.state = {user: [], isLoading: true}
     }
 
-    componentDidMount() {
-        getUser().then(response => {
-            this.setState({user: response.data, isLoading: false});
-        })
+    componentWillMount() {
+      // this.fetchUser.bind(this)
+      getUser().then(response => {
+          this.setState({user: response.data, isLoading: false});
+      })
+        EventEmitter.subscribe('addplant', this.fetchUser.bind(this))
+    }
+
+    fetchUser() {
+      getUser().then(response => {
+          this.setState({user: response.data, isLoading: false});
+      })
     }
 
 
