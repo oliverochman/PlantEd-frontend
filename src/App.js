@@ -37,33 +37,33 @@ class App extends Component {
     }
 
     componentWillMount() {
-        cable.subscriptions.create({channel: 'NotificationChannel', user_id: JSON.parse(sessionStorage.getItem('current_user')).id}, {
-            received: (data) => {
-                console.log('received message')
-                return toast(data.notification, {autoClose: 8000})
-            },
-        });
+
+        if (sessionStorage.getItem('current_user')) {
+            cable.subscriptions.create({
+                channel: 'NotificationChannel',
+                user_id: JSON.parse(sessionStorage.getItem('current_user')).id
+            }, {
+                received: (data) => {
+                    console.log('received message')
+                    return toast(data.notification, {autoClose: 8000})
+                },
+            });
+        }
+
         EventEmitter.subscribe('authenticate.update', this.updateAuthState.bind(this));
     }
 
-
-    componentWillUnmount() {
-        EventEmitter.unsubscribe('authenticate.update', null);
-    }
-
-
     updateAuthState() {
-
         this.setState({authenticated: true});
         App.notify();
         this.forceUpdate.bind(this);
     }
 
     resetAuthState() {
+        EventEmitter.unsubscribe('authenticate.update', null);
         deAuthenticate().then(() => {
             this.setState({authenticated: false});
-            //this.forceUpdate.bind(this);
-            window.location.reload()
+            EventEmitter.subscribe('authenticate.update', this.updateAuthState.bind(this));
         })
 
     }
