@@ -3,7 +3,6 @@ import {getUser} from '../Modules/User';
 import EventEmitter from '../Modules/EventEmitter';
 
 
-
 class ShowUser extends Component {
     constructor() {
         super();
@@ -11,17 +10,18 @@ class ShowUser extends Component {
     }
 
     componentWillMount() {
-      // this.fetchUser.bind(this)
-      getUser().then(response => {
-          this.setState({user: response.data, isLoading: false});
-      })
-        EventEmitter.subscribe('addplant', this.fetchUser.bind(this))
+        getUser().then(response => {
+            this.setState({user: response.data, isLoading: false});
+        });
+        EventEmitter.subscribe('plant.added', this.fetchUser.bind(this))
     }
 
     fetchUser() {
-      getUser().then(response => {
-          this.setState({user: response.data, isLoading: false});
-      })
+        EventEmitter.unsubscribe('plant.added', '');
+        getUser().then(response => {
+            this.setState({user: response.data, isLoading: false});
+            EventEmitter.subscribe('plant.added', this.fetchUser.bind(this))
+        })
     }
 
 
