@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {getUser} from '../Modules/User';
+import {AddFrequency} from './Frequency';
 
 
 class ShowUser extends Component {
@@ -28,6 +29,7 @@ class ShowUser extends Component {
                     <li key={plant.id} className={'no-bullets'} value="plant">
                         <h4>{plant.name}</h4>
                         <p>{plant.description}</p>
+                        <Button>AddFrequency()</Buuton>
                     </li>
                 )
             });
