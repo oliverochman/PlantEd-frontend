@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {getUser} from '../Modules/User';
-import {AddFrequency} from './Frequency';
+import EventEmitter from '../Modules/EventEmitter';
 
 
 class ShowUser extends Component {
@@ -9,9 +9,18 @@ class ShowUser extends Component {
         this.state = {user: [], isLoading: true}
     }
 
-    componentDidMount() {
+    componentWillMount() {
         getUser().then(response => {
             this.setState({user: response.data, isLoading: false});
+        });
+        EventEmitter.subscribe('plant.added', this.fetchUser.bind(this))
+    }
+
+    fetchUser() {
+        EventEmitter.unsubscribe('plant.added', '');
+        getUser().then(response => {
+            this.setState({user: response.data, isLoading: false});
+            EventEmitter.subscribe('plant.added', this.fetchUser.bind(this))
         })
     }
 
