@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {getUser} from '../Modules/User';
+import EventEmitter from '../Modules/EventEmitter';
 import { Collapse } from 'reactstrap';
 
 
@@ -12,9 +13,18 @@ class ShowUser extends Component {
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
         getUser().then(response => {
             this.setState({user: response.data, isLoading: false});
+        });
+        EventEmitter.subscribe('plant.added', this.fetchUser.bind(this))
+    }
+
+    fetchUser() {
+        EventEmitter.unsubscribe('plant.added', '');
+        getUser().then(response => {
+            this.setState({user: response.data, isLoading: false});
+            EventEmitter.subscribe('plant.added', this.fetchUser.bind(this))
         })
     }
 

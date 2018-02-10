@@ -10,7 +10,7 @@ import ActionCable from 'actioncable'
 import './App.css';
 import {deAuthenticate} from "./Modules/Auth";
 
-// const cable = ActionCable.createConsumer("ws://localhost:3001/cable");
+const cable = ActionCable.createConsumer("ws://localhost:3001/cable");
 
 
 class App extends Component {
@@ -36,34 +36,34 @@ class App extends Component {
         return !(credentials === null || credentials.length === 0);
     }
 
-    // componentWillMount() {
-    //     cable.subscriptions.create({channel: 'NotificationChannel', user_id: JSON.parse(sessionStorage.getItem('current_user')).id}, {
-    //         received: (data) => {
-    //             console.log('received message')
-    //             return toast(data.notification, {autoClose: 8000})
-    //         },
-    //     });
-    //     EventEmitter.subscribe('authenticate.update', this.updateAuthState.bind(this));
-    // }
+    componentWillMount() {
 
+        if (sessionStorage.getItem('current_user')) {
+            cable.subscriptions.create({
+                channel: 'NotificationChannel',
+                user_id: JSON.parse(sessionStorage.getItem('current_user')).id
+            }, {
+                received: (data) => {
+                    console.log('received message')
+                    return toast(data.notification, {autoClose: 8000})
+                },
+            });
+        }
 
-    componentWillUnmount() {
-        EventEmitter.unsubscribe('authenticate.update', null);
+        EventEmitter.subscribe('authenticate.update', this.updateAuthState.bind(this));
     }
 
-
     updateAuthState() {
-
         this.setState({authenticated: true});
         App.notify();
         this.forceUpdate.bind(this);
     }
 
     resetAuthState() {
+        EventEmitter.unsubscribe('authenticate.update', null);
         deAuthenticate().then(() => {
             this.setState({authenticated: false});
-            //this.forceUpdate.bind(this);
-            window.location.reload()
+            EventEmitter.subscribe('authenticate.update', this.updateAuthState.bind(this));
         })
 
     }

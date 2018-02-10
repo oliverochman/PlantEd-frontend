@@ -14,15 +14,12 @@ const getPlants = () => {
             });
     })
 };
-
 const getPlant = (plant) => {
-    const path = apiUrl + '/plants/';
+    const path = apiUrl + '/plants/' + plant;
     return new Promise((resolve, reject) => {
-        axios.get(path, {data: {id: plant.id}, headers: getAuthHeaders()})
+        axios.get(path, {headers: getAuthHeaders()})
             .then(response => {
-                storeAuthHeaders(response).then(() => {
-                    resolve(response.data)
-                });
+                resolve(response.data)
             })
             .catch(error => {
                 reject(error)
