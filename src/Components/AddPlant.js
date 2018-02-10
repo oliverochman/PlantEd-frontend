@@ -29,7 +29,6 @@ class AddPlant extends Component {
 
     selectPlant() {
         const plant = this.state.selectedPlant;
-        //let self = this;
         createUserPlant(plant).then((response) => {
             console.log(response);
             EventEmitter.publish('plant.added', '');
