@@ -40,12 +40,14 @@ class AddPlant extends Component {
             return <option key={plant.id} value={plant.id}>{plant.attributes.name}</option>
         });
         return (
-            <div>
+            <div id="select-plant">
                 <h3>Select your plants from the list here:</h3>
-                <select onChange={this.handleSelect.bind(this)}>
-                    {plantOptions}
-                </select>
-                <Button size="sm" onClick={this.selectPlant.bind(this)}>Add Plant</Button>
+                <div className="form-inline">
+                    <select className="form-control" onChange={this.handleSelect.bind(this)} id="select">
+                        {plantOptions}
+                    </select>
+                    <Button size="sm" onClick={this.selectPlant.bind(this)} id="addplant">Add Plant</Button>
+                </div>
             </div>
         );
     }
