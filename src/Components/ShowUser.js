@@ -4,7 +4,6 @@ import {updatePlant} from '../Modules/Plants'
 import {Input, Button} from 'reactstrap'
 import EventEmitter from '../Modules/EventEmitter';
 
-
 class ShowUser extends Component {
     constructor() {
         super();
@@ -48,8 +47,6 @@ class ShowUser extends Component {
         if (this.state.isLoading) {
             return <div>Loading</div>
         } else {
-
-
             const plantList = user.relationships.plants.data.map(plant => {
                 let frequency;
                 if (plant.frequency) {
@@ -67,15 +64,14 @@ class ShowUser extends Component {
                         <Input placeholder={plant.frequency ? 'Change frequency' : 'Add frequency'} onChange={this.handleFrequencyInput.bind(this)}/>
                         <Button onClick={this.addFrequency.bind(this, plant)}>Add</Button>
                     </li>
+
                 )
             });
             return (
                 <div>
-                    <h3>User</h3>
-                    <p>{user.attributes.email}</p>
-                    <ul>
+                    <div className="container">
                         {plantList}
-                    </ul>
+                    </div>
                 </div>
             );
         }

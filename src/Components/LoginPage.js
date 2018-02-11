@@ -56,22 +56,44 @@ class Login extends Component {
                                value={this.state.password}
                                onChange={(e) => this.setState( {password: e.target.value})}/>
                     </FormGroup>
-                    <Button onClick={() => this.handleLogin()}>Login</Button>
+                    <Button onClick={() => this.handleLogin()} id="button-login" size="md" block>Login</Button>
                 </Form>
             )
         } else {
             form = (
-                <h1>Show registration form</h1>
+                <Form>
+                    <FormGroup>
+                        <Label for="exampleEmail">Email</Label>
+                        <Input type="email" name="email" id="exampleEmail"
+                               placeholder="with a placeholder"
+                               value={this.state.email}
+                               onChange={(e) => this.setState( {email: e.target.value})}/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="examplePassword">Password</Label>
+                        <Input type="password" name="password" id="examplePassword"
+                               placeholder="password placeholder"
+                               value={this.state.password}
+                               onChange={(e) => this.setState( {password: e.target.value})}/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="examplePasswordConfirmation">Password Confirmation</Label>
+                        <Input type="password" name="password-confirmation" id="examplePasswordConfirmation"
+                               placeholder="password confirmation placeholder"
+                               value={this.state.password.confirmation}
+                               onChange={(e) => this.setState( {password: e.target.value})}/>
+                    </FormGroup>
+                    <Button onClick={() => this.handleLogin()} id="button-login" size="md" block>Sign up</Button>
+                </Form>
             )
         }
 
         return (
-            <div className='row jusify-content-center'>
-                <div className='col-10 col-sm-7 col-md-5 col-lg-4'>
+            <div>
+                <div className='col-10 col-sm-7 col-md-5 col-lg-4' id="login">
                     {form}
-
-                    <Button onClick={this.toggleRegistrationForm.bind(this)}>
-                        {this.state.showRegistrationForm ? 'Sign in' : 'Create Account' }
+                    <Button onClick={this.toggleRegistrationForm.bind(this)} id="button-signup" size="sm" block>
+                        {this.state.showRegistrationForm ? 'Login' : 'Create Account' }
                     </Button>
 
                 </div>
