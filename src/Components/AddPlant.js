@@ -42,7 +42,7 @@ class AddPlant extends Component {
         return (
             <div>
                 <h3>Select your plants from the list here:</h3>
-                <select onChange={this.handleSelect.bind(this)}>
+                <select className="form-control" onChange={this.handleSelect.bind(this)} is="select">
                     {plantOptions}
                 </select>
                 <Button size="sm" onClick={this.selectPlant.bind(this)}>Add Plant</Button>

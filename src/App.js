@@ -4,7 +4,7 @@ import AddPlant from './Components/AddPlant';
 import ShowUser from './Components/ShowUser'
 import Login from './Components/LoginPage';
 import {ToastContainer, toast} from 'react-toastify'
-import {Container, Row, Col, Button} from 'reactstrap';
+import {Jumbotron, Container, Row, Col, Button} from 'reactstrap';
 import ActionCable from 'actioncable'
 
 import './App.css';
@@ -73,16 +73,19 @@ class App extends Component {
         let logOutButton;
 
         if (this.state.authenticated === true) {
-            logOutButton = <Button color="secondary" onClick={this.resetAuthState.bind(this)}>Log out</Button>
+            logOutButton = <Button onClick={this.resetAuthState.bind(this)} id="button-logout">Log out</Button>
         }
 
 
         const header = (
             <div className="App">
-                <header className="App-header">
-                    <h1 className="App-title">Welcome to PlantEd</h1>
-                    {logOutButton}
-                </header>
+                <Jumbotron fluid>
+                    <Container fluid>
+                        <h1 className="display-3">Welcome to PlantEd</h1>
+                        <p className="lead">Keeping your plants alive</p>
+                        {logOutButton}
+                    </Container>
+                </Jumbotron>
             </div>
         );
 
@@ -105,17 +108,13 @@ class App extends Component {
             return (
                 <div>
                     {header}
-                    <Container>
-                        <Row>
-                            <Col>
-                                <ToastContainer/>
-                                <AddPlant/>
-                            </Col>
-                            <Col>
-                                <ShowUser/>
-                            </Col>
-                        </Row>
-                    </Container>
+                        <ToastContainer/>
+                        <Container>
+                            <AddPlant/>
+                        </Container>
+                        <Container>
+                            <ShowUser/>
+                        </Container>
                 </div>
 
             )
